@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 import LeftArrowIcon from '../../../Slider/ui/SliderNavIcons/LeftArrowIcon';
 import RightArrowIcon from '../../../Slider/ui/SliderNavIcons/RightArrowIcon';
+import Store from '../../../../store/store';
 
 interface INavigationBlock {
-    indexForText?: number,
-    length?: number,
     handlePrevClick: () => void,
     handleNextClick: () => void
 }
 
-const NavigationBlock = ({indexForText, length, handlePrevClick, handleNextClick}: INavigationBlock) => {
-
+const NavigationBlock = ({ handlePrevClick, handleNextClick}: INavigationBlock) => {
+    const {indexForText, dataLength} = Store
     return (
         <Block>
             <div style={{
@@ -22,7 +21,7 @@ const NavigationBlock = ({indexForText, length, handlePrevClick, handleNextClick
                 fontWeight: 400,
                 lineHeight: 'normal'
             }}>
-                0{indexForText}/0{length}
+                0{indexForText}/0{dataLength}
             </div>
             <div
                 style={{
@@ -39,10 +38,10 @@ const NavigationBlock = ({indexForText, length, handlePrevClick, handleNextClick
                 >
                     <LeftArrowIcon  color={'#42567A'} strokeColor={'#42567A'} fillColor={'none'}/>
                 </div>
-                <div onClick={indexForText === length ? undefined : handleNextClick}
+                <div onClick={indexForText === dataLength ? undefined : handleNextClick}
                      style={{
                          cursor: 'pointer',
-                         opacity: indexForText === length ? 0.3 : 1,
+                         opacity: indexForText === dataLength ? 0.3 : 1,
                      }}
                 >
                     <RightArrowIcon color={'#42567A'} strokeColor={'#42567A'} fillColor={'none'}/>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Swiper} from 'swiper/react';
 
 interface SliderContainerProps {
-    isVisible: boolean;
+    $isVisible: boolean;
 }
 
 export const SliderContainer = styled.div<SliderContainerProps>`
@@ -10,7 +10,7 @@ export const SliderContainer = styled.div<SliderContainerProps>`
     width: 100%;
     max-width: 1438px;
     top: -30px;
-    opacity: ${(props) => (props.isVisible ? 1 : 0)};
+    opacity: ${(props) => (props.$isVisible ? 1 : 0)};
     transition: opacity 1s ease;
     display: flex;
     align-items: center;

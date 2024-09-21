@@ -1,34 +1,36 @@
-
-import React, {useState} from 'react';
-import {dateRanges} from '../../data';
-import { Block, Main } from './BlockModuleStyle';
+import React, {useEffect, useState} from 'react';
+import { Block, Main } from './AnimationBlockStyle';
 import CircleCommon from './components/Circle/CircleCommon';
 import Slider from './components/Slider/Slider';
+import Store from './store/store';
+import {observer} from 'mobx-react';
 
-const BlockModule = () => {
-    const [indexForText, setIndexForText] = useState<number>(dateRanges.length);
+export const AnimationBlock = observer(() => {
+    const {getDataAction, isLoadingStore, dataLength} = Store;
     const [isSliderVisible, setIsSliderVisible] = useState<boolean>(true);
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
+    useEffect(() => {
+        getDataAction();
+    }, [getDataAction]);
+
+    if (isLoadingStore || dataLength === 0) {
+        return <div>Загрузка данных...</div>;
+    }
+
     return (
         <Block>
             <Main>
                 <CircleCommon
-                    length={dateRanges.length}
-                    indexForText={indexForText}
-                    setIndexForText={setIndexForText}
                     setIsSliderVisible={setIsSliderVisible}
                     setIsAnimating={setIsAnimating}
                     isAnimating={isAnimating}
                 />
                 <Slider
-                    indexForText={indexForText}
                     isSliderVisible={isSliderVisible}
                     isAnimating={isAnimating}
                 />
-
             </Main>
         </Block>
     );
-};
+});
 
-export default BlockModule;

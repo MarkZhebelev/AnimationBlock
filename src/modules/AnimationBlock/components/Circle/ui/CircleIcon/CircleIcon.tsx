@@ -19,8 +19,8 @@ const CircleIcon = ({ children, isActive }: CircleIconProps) => {
 
     return (
         <StyledCircleIcon
-            isActive={isActive}
-            isHovered={isHovered}
+            $isActive={isActive}
+            $isHovered={isHovered}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             xmlns="http://www.w3.org/2000/svg"

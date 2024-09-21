@@ -1,22 +1,25 @@
-import {LineX, LineY, TitleText, TitleContainer, CircleComponentStyle, TitleGradient} from './style/CircleComponentStyles';
-import GradientLine from '../ui/GradientLine/GradientLine';
+import {
+    LineX,
+    LineY,
+    TitleText,
+    TitleContainer,
+    CircleComponentStyle,
+    TitleGradient
+} from './style/CircleComponentStyles';
+import GradientLine from './ui/GradientLine/GradientLine';
 import Circle from './Circle';
-import {dateRanges} from '../../../../data';
-
 import React, {useRef} from 'react';
 import NavigationBlock from './ui/NavigationBlock/NavigationBlock';
+import {observer} from 'mobx-react';
+
 
 export interface ICircleCommon {
-    indexForText?: number,
-    setIndexForText: (index: any) => void,
     setIsSliderVisible: (isSliderVisible: boolean) => void,
-    length?: number,
     setIsAnimating: (isAnimating: boolean) => void,
-    isAnimating: boolean
+    isAnimating: boolean,
 }
 
-const CircleCommon = ({indexForText, setIndexForText, setIsSliderVisible, length, setIsAnimating, isAnimating}: ICircleCommon) => {
-
+const CircleCommon = observer(({setIsSliderVisible, setIsAnimating, isAnimating}: ICircleCommon) => {
     const circleRef = useRef<any>(null);
     const titleText: string = 'Исторические даты';
 
@@ -43,15 +46,11 @@ const CircleCommon = ({indexForText, setIndexForText, setIsSliderVisible, length
                 <LineX/>
                 <Circle
                     ref={circleRef}
-                    setIndexForText={setIndexForText}
-                    dateRanges={dateRanges}
                     setIsSliderVisible={setIsSliderVisible}
                     setIsAnimating={setIsAnimating}
                     isAnimating={isAnimating}
-                    indexForText={indexForText}/>
+                />
                 <NavigationBlock
-                    indexForText={indexForText}
-                    length={length}
                     handleNextClick={handleNextClick}
                     handlePrevClick={handlePrevClick}
                 />
@@ -59,7 +58,7 @@ const CircleCommon = ({indexForText, setIndexForText, setIsSliderVisible, length
 
         </>
     );
-};
+});
 
 export default CircleCommon;
 

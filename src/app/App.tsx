@@ -1,9 +1,9 @@
-import BlockModule from '../modules/BlockModule/BlockModule';
+import {AnimationBlock} from '../modules/AnimationBlock/AnimationBlock';
 
-function App() {
+const App = () => {
     return (
         <>
-            <BlockModule/>
+            <AnimationBlock/>
         </>
 
     );

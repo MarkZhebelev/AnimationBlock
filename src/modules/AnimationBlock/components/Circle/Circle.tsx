@@ -1,20 +1,16 @@
 import React, {useRef, useState, forwardRef, useImperativeHandle} from 'react';
 import CircleIcon from './ui/CircleIcon/CircleIcon';
 import {DateDisplay, CircleStyle} from './style/CircleComponentStyles';
-import {DateText} from './ui/DateText';
+import {DateText} from './ui/DateText/DateText';
 import {CircleIconWrapper} from './ui/CircleIcon/CircleIconWrapper';
-import {ICircleCommon} from './CircleCommon';
 import styled from 'styled-components';
+import Store from '../../store/store';
 
-interface IDateRange {
-    start: number;
-    end: number;
-    nameEvents: string,
 
-}
-
-interface ICircleProps extends ICircleCommon {
-    dateRanges: IDateRange[];
+interface ICircle {
+    setIsSliderVisible:(isSliderVisible: boolean) => void,
+    setIsAnimating: (isAnimating: boolean) => void,
+    isAnimating: boolean
 }
 
 const TextEvents: any = styled.p`
@@ -33,22 +29,16 @@ const TextEvents: any = styled.p`
     
    
 `
-const Circle = forwardRef(({
-                               dateRanges,
-                               setIndexForText,
-                               setIsSliderVisible,
-                               setIsAnimating,
-                               isAnimating
-                           }: ICircleProps, ref) => {
-    let iconsCount: number = dateRanges.length;
+const Circle = forwardRef(({setIsSliderVisible, setIsAnimating, isAnimating}: ICircle, ref) => {
+    const {setIndexForText, data, } = Store;
+    let iconsCount: number = data.length;
     const initialRotation: number[] = Array.from({length: iconsCount}, (_, i: number) => (i / iconsCount) * 2 * Math.PI);
     const [rotation, setRotation] = useState<number[]>(initialRotation);
     const [targetIndex, setTargetIndex] = useState<number>(iconsCount - 1);
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const iconRefs = useRef<HTMLDivElement[]>([]);
-
-    const [startYear, setStartYear] = useState<number>(dateRanges[targetIndex].start);
-    const [endYear, setEndYear] = useState<number>(dateRanges[targetIndex].end);
+    const [startYear, setStartYear] = useState<number>(data[targetIndex].start);
+    const [endYear, setEndYear] = useState<number>(data[targetIndex].end);
 
     const handleIconClick = (index: number) => {
         if (isAnimating) return;
@@ -65,8 +55,8 @@ const Circle = forwardRef(({
         );
 
 
-        const newStartYear: number = dateRanges[index].start;
-        const newEndYear: number = dateRanges[index].end;
+        const newStartYear: number = data[index].start;
+        const newEndYear: number = data[index].end;
 
         animateYears(newStartYear, newEndYear);
 
@@ -140,7 +130,7 @@ const Circle = forwardRef(({
                         </CircleIcon>
                         {index === activeIndex || index === targetIndex ? (
                             <TextEvents>
-                                {dateRanges[index].nameEvents || 'Неизвестное событие'}
+                                {data[index].nameEvents || 'Неизвестное событие'}
                             </TextEvents>
                         ) : null}
                     </div>
