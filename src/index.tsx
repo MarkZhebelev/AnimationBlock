@@ -4,7 +4,7 @@ import './index.css';
 import App from './app/App';
 import 'normalize.css';
 import reportWebVitals from './reportWebVitals';
-import NotFound, {LazyNotFound} from './components/Not Found/NotFound';
+import  {LazyNotFound} from './components/NotFound/NotFound';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 const router = createBrowserRouter([

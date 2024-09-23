@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 type Mode = 'development' | 'production';
 
@@ -51,11 +51,13 @@ export default (env: EnvironmentVariables) => {
                 template: './public/index.html',
             }),
             new CleanWebpackPlugin(),
-            ...(env.mode === 'production' ? [new BundleAnalyzerPlugin()] : []),
+
+            // ...(env.mode === 'production' ? [new BundleAnalyzerPlugin()] : []),
             // new BundleAnalyzerPlugin({
             //     analyzerPort: 8889, // Указываем нужный порт
             //     openAnalyzer: true, // Открывать автоматически
             // }),
+
         ],
         devtool: isDev ?  'inline-source-map' : false,
         devServer: isDev ? {
