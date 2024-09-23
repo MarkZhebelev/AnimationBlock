@@ -5,6 +5,7 @@ import {DateText} from './ui/DateText/DateText';
 import {CircleIconWrapper} from './ui/CircleIcon/CircleIconWrapper';
 import styled from 'styled-components';
 import Store from '../../store/store';
+import {observer} from 'mobx-react-lite';
 
 
 interface ICircle {
@@ -29,7 +30,7 @@ const TextEvents: any = styled.p`
     
    
 `
-const Circle = forwardRef(({setIsSliderVisible, setIsAnimating, isAnimating}: ICircle, ref) => {
+const Circle = observer(forwardRef(({setIsSliderVisible, setIsAnimating, isAnimating}: ICircle, ref) => {
     const {setIndexForText, data, } = Store;
     let iconsCount: number = data.length;
     const initialRotation: number[] = Array.from({length: iconsCount}, (_, i: number) => (i / iconsCount) * 2 * Math.PI);
@@ -138,7 +139,7 @@ const Circle = forwardRef(({setIsSliderVisible, setIsAnimating, isAnimating}: IC
             ))}
         </>
     );
-})
+}))
 
 export default Circle;
 

@@ -7,11 +7,11 @@ import {
     TitleGradient
 } from './style/CircleComponentStyles';
 import GradientLine from './ui/GradientLine/GradientLine';
-import Circle from './Circle';
-import React, {useRef} from 'react';
-import NavigationBlock from './ui/NavigationBlock/NavigationBlock';
-import {observer} from 'mobx-react';
+import React, {useRef, Suspense} from 'react';
+import {observer} from 'mobx-react-lite';
 
+const Circle = React.lazy(() => import('./Circle'));
+const NavigationBlock = React.lazy(() => import('./ui/NavigationBlock/NavigationBlock'));
 
 export interface ICircleCommon {
     setIsSliderVisible: (isSliderVisible: boolean) => void,
@@ -44,16 +44,20 @@ const CircleCommon = observer(({setIsSliderVisible, setIsAnimating, isAnimating}
                 </TitleContainer>
                 <LineY/>
                 <LineX/>
-                <Circle
-                    ref={circleRef}
-                    setIsSliderVisible={setIsSliderVisible}
-                    setIsAnimating={setIsAnimating}
-                    isAnimating={isAnimating}
-                />
-                <NavigationBlock
-                    handleNextClick={handleNextClick}
-                    handlePrevClick={handlePrevClick}
-                />
+                <Suspense fallback={<div>Загрузка компонента...</div>}>
+                    <Circle
+                        ref={circleRef}
+                        setIsSliderVisible={setIsSliderVisible}
+                        setIsAnimating={setIsAnimating}
+                        isAnimating={isAnimating}
+                    />
+                </Suspense>
+                <Suspense fallback={<div>Загрузка компонента...</div>}>
+                    <NavigationBlock
+                        handleNextClick={handleNextClick}
+                        handlePrevClick={handlePrevClick}
+                    />
+                </Suspense>
             </CircleComponentStyle>
 
         </>

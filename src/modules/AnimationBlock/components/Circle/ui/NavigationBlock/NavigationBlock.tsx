@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import LeftArrowIcon from '../../../Slider/ui/SliderNavIcons/LeftArrowIcon';
 import RightArrowIcon from '../../../Slider/ui/SliderNavIcons/RightArrowIcon';
 import Store from '../../../../store/store';
+import {observer} from 'mobx-react-lite';
 
 interface INavigationBlock {
     handlePrevClick: () => void,
     handleNextClick: () => void
 }
 
-const NavigationBlock = ({ handlePrevClick, handleNextClick}: INavigationBlock) => {
+const NavigationBlock = observer(({ handlePrevClick, handleNextClick}: INavigationBlock) => {
     const {indexForText, dataLength} = Store
     return (
         <Block>
@@ -49,7 +50,7 @@ const NavigationBlock = ({ handlePrevClick, handleNextClick}: INavigationBlock) 
             </div>
         </Block>
     );
-};
+});
 
 const Block: any = styled.div`
     display: flex;

@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app/App';
 import 'normalize.css';
 import reportWebVitals from './reportWebVitals';
-import NotFound from './components/Not Found/NotFound';
+import NotFound, {LazyNotFound} from './components/Not Found/NotFound';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        errorElement: <NotFound />,
+        errorElement: <Suspense fallback={<div>...Loading</div>}> <LazyNotFound /></Suspense>,
+    },
+    {
+        path: "*", // Этот маршрут ловит все неправильные пути
+        element: <Suspense fallback={<div>...Loading</div>}> <LazyNotFound /></Suspense>
     },
 ]);
 

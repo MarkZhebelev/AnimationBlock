@@ -1,9 +1,10 @@
-import {AnimationBlock} from '../modules/AnimationBlock/AnimationBlock';
+import {LazyAnimationBlock} from '../modules/AnimationBlock/AnimationBlock';
+import {Suspense} from 'react';
 
 const App = () => {
     return (
         <>
-            <AnimationBlock/>
+           <Suspense fallback={<div>...loading</div>}><LazyAnimationBlock/></Suspense>
         </>
 
     );

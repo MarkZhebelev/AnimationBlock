@@ -23,7 +23,7 @@ class Store implements IStore {
             runInAction(() => {
                 this._data = res
                 this.dataLength = res.length
-                this.indexForText = this.dataLength // Устанавливаем indexForText на последний элемент
+                this.indexForText = this.dataLength
                 this.isLoadingStore = false;
             })
         } catch (error) {
@@ -35,7 +35,7 @@ class Store implements IStore {
     }
 
     setIndexForText = (index: number) => {
-        this.indexForText = index;  // Метод для изменения indexForText
+        this.indexForText = index;
     }
 }
 
