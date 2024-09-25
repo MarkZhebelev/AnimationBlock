@@ -9,17 +9,21 @@ import {
 import GradientLine from './ui/GradientLine/GradientLine';
 import React, {useRef, Suspense} from 'react';
 import {observer} from 'mobx-react-lite';
+import Store from '../../store/store';
+
 
 const Circle = React.lazy(() => import('./Circle'));
 const NavigationBlock = React.lazy(() => import('./ui/NavigationBlock/NavigationBlock'));
 
 export interface ICircleCommon {
+    store: Store
     setIsSliderVisible: (isSliderVisible: boolean) => void,
     setIsAnimating: (isAnimating: boolean) => void,
     isAnimating: boolean,
+    isSliderVisible: boolean
 }
 
-const CircleCommon = observer(({setIsSliderVisible, setIsAnimating, isAnimating}: ICircleCommon) => {
+const CircleCommon = observer(({store,setIsSliderVisible, setIsAnimating, isAnimating, isSliderVisible}: ICircleCommon) => {
     const circleRef = useRef<any>(null);
     const titleText: string = 'Исторические даты';
 
@@ -43,9 +47,11 @@ const CircleCommon = observer(({setIsSliderVisible, setIsAnimating, isAnimating}
                     <TitleText>{titleText}</TitleText>
                 </TitleContainer>
                 <LineY/>
-                <LineX/>
+                <LineX $isSliderVisible={isSliderVisible}/>
                 <Suspense fallback={<div>Загрузка компонента...</div>}>
                     <Circle
+                        store={store}
+                        isSliderVisible={isSliderVisible}
                         ref={circleRef}
                         setIsSliderVisible={setIsSliderVisible}
                         setIsAnimating={setIsAnimating}
@@ -54,6 +60,7 @@ const CircleCommon = observer(({setIsSliderVisible, setIsAnimating, isAnimating}
                 </Suspense>
                 <Suspense fallback={<div>Загрузка компонента...</div>}>
                     <NavigationBlock
+                        store={store}
                         handleNextClick={handleNextClick}
                         handlePrevClick={handlePrevClick}
                     />

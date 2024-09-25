@@ -13,7 +13,7 @@ const router = createBrowserRouter([
         errorElement: <Suspense fallback={<div>...Loading</div>}> <LazyNotFound /></Suspense>,
     },
     {
-        path: "*", // Этот маршрут ловит все неправильные пути
+        path: "*",
         element: <Suspense fallback={<div>...Loading</div>}> <LazyNotFound /></Suspense>
     },
 ]);

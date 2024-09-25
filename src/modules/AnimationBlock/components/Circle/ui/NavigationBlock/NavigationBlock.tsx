@@ -4,13 +4,15 @@ import RightArrowIcon from '../../../Slider/ui/SliderNavIcons/RightArrowIcon';
 import Store from '../../../../store/store';
 import {observer} from 'mobx-react-lite';
 
+
 interface INavigationBlock {
+    store: Store
     handlePrevClick: () => void,
     handleNextClick: () => void
 }
 
-const NavigationBlock = observer(({ handlePrevClick, handleNextClick}: INavigationBlock) => {
-    const {indexForText, dataLength} = Store
+const NavigationBlock = observer(({ store, handlePrevClick, handleNextClick}: INavigationBlock) => {
+    const {indexForText, dataLength} = store
     return (
         <Block>
             <div style={{
@@ -61,7 +63,7 @@ const Block: any = styled.div`
     left: 0;
     @media (max-width: 320px) {
         position: absolute;
-        top: 700px;
+        top: 540px;
     }
 `
 

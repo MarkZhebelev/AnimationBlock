@@ -1,37 +1,23 @@
 import React, {useRef, useState, forwardRef, useImperativeHandle} from 'react';
 import CircleIcon from './ui/CircleIcon/CircleIcon';
-import {DateDisplay, CircleStyle} from './style/CircleComponentStyles';
+import {DateDisplay, CircleStyle, TextEvents, TextEventsMobile} from './style/CircleComponentStyles';
 import {DateText} from './ui/DateText/DateText';
 import {CircleIconWrapper} from './ui/CircleIcon/CircleIconWrapper';
-import styled from 'styled-components';
-import Store from '../../store/store';
 import {observer} from 'mobx-react-lite';
+import Store from '../../store/store';
+
 
 
 interface ICircle {
+    store: Store,
     setIsSliderVisible:(isSliderVisible: boolean) => void,
     setIsAnimating: (isAnimating: boolean) => void,
-    isAnimating: boolean
+    isAnimating: boolean,
+    isSliderVisible: boolean
 }
 
-const TextEvents: any = styled.p`
-    position: absolute;
-    top: -5px;
-    left: 120%;
-    font-family: "PT Sans", sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    color: #42567A;
-    text-wrap: nowrap;
-    @media (max-width: 768px) {
-        display: none;
-    }
-    
-   
-`
-const Circle = observer(forwardRef(({setIsSliderVisible, setIsAnimating, isAnimating}: ICircle, ref) => {
-    const {setIndexForText, data, } = Store;
+const Circle = observer(forwardRef(({store, isSliderVisible, setIsSliderVisible, setIsAnimating, isAnimating}: ICircle, ref) => {
+    const {setIndexForText, data, } = store;
     let iconsCount: number = data.length;
     const initialRotation: number[] = Array.from({length: iconsCount}, (_, i: number) => (i / iconsCount) * 2 * Math.PI);
     const [rotation, setRotation] = useState<number[]>(initialRotation);
@@ -112,6 +98,7 @@ const Circle = observer(forwardRef(({setIsSliderVisible, setIsAnimating, isAnima
                 <DateText color="#5d5fef">{Math.round(startYear)}</DateText>
                 <DateText color="#ef5da8">{Math.round(endYear)}</DateText>
             </DateDisplay>
+            <TextEventsMobile $isSliderVisible={isSliderVisible}> {data[targetIndex].nameEvents || 'Неизвестное событие'}</TextEventsMobile>
             {rotation.map((angle: number, index: number) => (
                 <CircleIconWrapper
                     key={index}
@@ -124,13 +111,13 @@ const Circle = observer(forwardRef(({setIsSliderVisible, setIsAnimating, isAnima
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
-                        alignItems: 'baseline', // Выровняем элементы по вертикали
+                        alignItems: 'baseline',
                     }}>
                         <CircleIcon isActive={index === activeIndex || index === targetIndex}>
                             {index + 1}
                         </CircleIcon>
                         {index === activeIndex || index === targetIndex ? (
-                            <TextEvents>
+                            <TextEvents $isSliderVisible={isSliderVisible}>
                                 {data[index].nameEvents || 'Неизвестное событие'}
                             </TextEvents>
                         ) : null}

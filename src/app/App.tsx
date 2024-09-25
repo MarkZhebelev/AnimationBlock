@@ -1,10 +1,10 @@
-import {LazyAnimationBlock} from '../modules/AnimationBlock/AnimationBlock';
 import {Suspense} from 'react';
+import LazyAnimationBlock from '../modules/AnimationBlock';
 
 const App = () => {
     return (
         <>
-           <Suspense fallback={<div>...loading</div>}><LazyAnimationBlock/></Suspense>
+           <Suspense fallback={<div style={{textAlign:'center'}}>...loading</div>}><LazyAnimationBlock/></Suspense>
         </>
 
     );

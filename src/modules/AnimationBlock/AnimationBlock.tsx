@@ -1,19 +1,20 @@
-import React, {useEffect, useState, Suspense, lazy} from 'react';
+import React, {useEffect, useState, Suspense} from 'react';
 import { Block, Main } from './AnimationBlockStyle';
 import Store from './store/store';
 import { observer } from 'mobx-react-lite';
 
-// Динамическая загрузка компонентов с использованием React.lazy
 const CircleCommon = React.lazy(() => import('./components/Circle/CircleCommon'));
 const Slider = React.lazy(() => import('./components/Slider/Slider'));
 
+
 const AnimationBlock = observer(() => {
-    const { getDataAction, isLoadingStore, dataLength } = Store;
+    const [store] = useState(() => new Store());
+    const { getDataAction, isLoadingStore, dataLength } = store;
     const [isSliderVisible, setIsSliderVisible] = useState<boolean>(true);
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
     useEffect(() => {
-        getDataAction(); // Загружаем данные при монтировании
+        getDataAction();
     }, [getDataAction]);
 
     if (isLoadingStore || dataLength === 0) {
@@ -23,16 +24,19 @@ const AnimationBlock = observer(() => {
     return (
         <Block>
             <Main>
-                <Suspense fallback={<div>Загрузка компонента...</div>}>
+                <Suspense fallback={<div style={{textAlign:'center'}}>Загрузка компонента...</div>}>
                     <CircleCommon
+                        store={store}
+                        isSliderVisible={isSliderVisible}
                         setIsSliderVisible={setIsSliderVisible}
                         setIsAnimating={setIsAnimating}
                         isAnimating={isAnimating}
                     />
                 </Suspense>
 
-                <Suspense fallback={<div>Загрузка слайдера...</div>}>
+                <Suspense fallback={<div style={{textAlign:'center'}}>Загрузка слайдера...</div>}>
                     <Slider
+                        store={store}
                         isSliderVisible={isSliderVisible}
                         isAnimating={isAnimating}
                     />
@@ -42,4 +46,4 @@ const AnimationBlock = observer(() => {
     );
 });
 export default AnimationBlock;
-export const LazyAnimationBlock = lazy(()=>import('./AnimationBlock'));
+

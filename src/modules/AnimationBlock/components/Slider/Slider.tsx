@@ -3,7 +3,7 @@ import { Navigation, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import RightArrowIcon from './ui/SliderNavIcons/RightArrowIcon';
-import React, {lazy, Suspense, useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState} from 'react';
 import {
     EventBlock,
     SliderContainer,
@@ -14,15 +14,15 @@ import {
 import {SwiperSlide} from 'swiper/react';
 import {observer} from 'mobx-react-lite';
 import Store from '../../store/store';
-// const Swiper = lazy(() => import('swiper/react').then((mod) => ({default: mod.Swiper})));
 
 interface ISliderComponent {
+    store: Store
     isSliderVisible: boolean;
     isAnimating: boolean;
 }
 
-const Slider = observer(({isSliderVisible, isAnimating}: ISliderComponent) => {
-    const {indexForText, data} = Store;
+const Slider = observer(({store, isSliderVisible, isAnimating}: ISliderComponent) => {
+    const {indexForText, data} = store;
     const prevRef = useRef<HTMLDivElement | null>(null);
     const nextRef = useRef<HTMLDivElement | null>(null);
     const [swiperInstance, setSwiperInstance] = useState<any>(null);
@@ -42,7 +42,7 @@ const Slider = observer(({isSliderVisible, isAnimating}: ISliderComponent) => {
 
 
     return (
-        <SliderContainer $isVisible={isSliderVisible}>
+        <SliderContainer $isSliderVisible={isSliderVisible}>
             <StyledPrevButton ref={prevRef} disabled={isBeginning || isAnimating}>
                 <LeftArrowIcon color={'#3877EE'}/>
             </StyledPrevButton>

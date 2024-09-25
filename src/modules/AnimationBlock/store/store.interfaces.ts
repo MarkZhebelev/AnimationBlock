@@ -17,8 +17,10 @@ export interface Event {
 }
 
 export interface IStore {
-    data: Root
-    dataLength: number
-    indexForText: number
-    isLoadingStore: boolean
+    data: Root;
+    dataLength: number;
+    indexForText: number;
+    isLoadingStore: boolean;
+    getDataAction?: () => Promise<void>;
+    setIndexForText?: (index: number) => void;
 }

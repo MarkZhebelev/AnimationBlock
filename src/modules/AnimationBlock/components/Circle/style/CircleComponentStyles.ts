@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {IIsVisible} from '../../CommonInterfaces';
 
 // --------------for CircleCommon
 export const CircleComponentStyle = styled.div`
@@ -7,6 +8,9 @@ export const CircleComponentStyle = styled.div`
     max-width: 1438px;
     height: 1100px;
     margin-bottom: 100px;
+    @media (max-width: 320px){
+        height: 0;
+    }
 `;
 export const TitleGradient = styled.div`
     min-width: 6px;
@@ -28,7 +32,10 @@ export const TitleContainer = styled.div`
         flex-direction: row;
         align-items: self-start;
         gap: 30px;
-        
+    }
+    @media (max-width: 320px) {
+        display: block;
+        top: 70px;
     }
 `;
 
@@ -41,16 +48,32 @@ export const TitleText = styled.p`
     text-align: left;
     max-width: 350px;
     @media (max-width: 576px) {
-        //padding-right: 5px;
         font-size: 42px;
         margin-top: 10px;
     }
     
     @media (max-width: 320px) {
-        padding-left: 10px;
-        top: 50px;
+        max-width: 120px;
+        font-size: 20px;
+        margin-left: 10px;
     }
 `;
+export const TextEvents: any = styled.p<IIsVisible>`
+    position: absolute;
+    top: -5px;
+    left: 120%;
+    font-family: "PT Sans", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    color: #42567A;
+    text-wrap: nowrap;
+    transition: opacity 1s ease;
+    opacity: ${(props) => (props.$isSliderVisible ? 1 : 0)};
+    @media (max-width: 768px) {
+        display: none;
+    }
+`
 export const LineY = styled.div`
     width: 1px;
     height: 100%;
@@ -67,7 +90,7 @@ export const LineY = styled.div`
 }
 `;
 
-export const LineX = styled.div`
+export const LineX = styled.div<IIsVisible>`
     height: 1px;
     width: 100%;
     background-color: #42567a;
@@ -78,7 +101,9 @@ export const LineX = styled.div`
     transform: translateY(-50%);
     z-index: 1;
     @media (max-width: 320px) {
-        top: 40%;
+        top: 330px;
+        transition: opacity 1s ease;
+        opacity: ${(props) => (props.$isSliderVisible ? 0.1 : 0)};
     }
 `;
 
@@ -117,6 +142,26 @@ export const DateDisplay = styled.div`
         font-size: calc(40px + 5vw);
     }
     @media (max-width: 320px) {
-        top: 30%;
+        top: 200px;
+        gap: 40px;
+        font-size: 56px;
     }
 `;
+export const TextEventsMobile = styled.div<IIsVisible>`
+    display: none;
+    @media (max-width: 320px) {
+        position: absolute;
+        top: 280px;
+        left: 10px;
+        font-family: "PT Sans", sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        color: #42567A;
+        text-wrap: nowrap;
+        display: block;
+        transition: opacity 1s ease;
+        opacity: ${(props) => (props.$isSliderVisible ? 1 : 0)};
+    }
+`
+

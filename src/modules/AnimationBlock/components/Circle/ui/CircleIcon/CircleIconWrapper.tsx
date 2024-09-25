@@ -13,7 +13,7 @@ export const CircleIconWrapper = styled.div<CircleIconWrapperProps>`
     transform: translate(-50%, -50%) rotate(${(props) => props.$angle}rad) translate(calc(30vw), 0) rotate(${(props) => -props.$angle}rad);
     transition: transform 1s ease;
     cursor: pointer;
-
+    z-index: 100;
     @media (min-width: 850px) {
         transform: translate(-50%, -50%) rotate(${(props) => props.$angle}rad) translate(265px, 0) rotate(${(props) => -props.$angle}rad);
     }

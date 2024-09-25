@@ -39,4 +39,5 @@ class Store implements IStore {
     }
 }
 
-export default new Store();
+export default Store;
+

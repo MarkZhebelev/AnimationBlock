@@ -16,6 +16,7 @@ export const Main = styled.div`
         border-left:none;
         border-right: none;
         border-bottom: none;
+        max-height: 100vh;
     }
 `;
 export const Block = styled.div`
@@ -24,4 +25,7 @@ export const Block = styled.div`
     justify-content: center;
     align-items: center;
     padding: 10px;
+    @media (max-width: 320px) {
+        height: 100vh;
+    }
 `;
