@@ -1,5 +1,5 @@
 import LeftArrowIcon from './ui/SliderNavIcons/LeftArrowIcon';
-import {Navigation, A11y} from 'swiper/modules';
+import { Navigation, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import RightArrowIcon from './ui/SliderNavIcons/RightArrowIcon';

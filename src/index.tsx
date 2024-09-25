@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app/App';
 import 'normalize.css';
-import reportWebVitals from './reportWebVitals';
 import  {LazyNotFound} from './components/NotFound/NotFound';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
@@ -29,4 +28,3 @@ root.render(
     </React.StrictMode>
 );
 
-reportWebVitals();
